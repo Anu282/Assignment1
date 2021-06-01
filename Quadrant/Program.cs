@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 namespace Quadrant
 {
+     /*Self Reflection: Time taken :1 week
+      *Learnings: string, arrays,lists,string manipulations, Console methods
+      *Recommendations:https://docs.microsoft.com/en-us/dotnet/csharp/
+      */
     class Program
     {
         public static bool JudgeCircle(string moves)
@@ -243,7 +247,7 @@ namespace Quadrant
             Console.WriteLine();
         }
 
-      
+
     }
 }
 
