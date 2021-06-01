@@ -7,6 +7,9 @@ namespace Quadrant
     {
         public static bool JudgeCircle(string moves)
         {
+            /*Store the moves into a dictionary,
+             * every character is assigned with integer array of length 2 describing x and y coordinates
+            */
             string movesfinal = moves.ToUpper();
             int xcoordinate=0, ycoordinate = 0;
             var dict = new Dictionary<char, int[]>();
@@ -14,12 +17,12 @@ namespace Quadrant
             dict['L'] = new int[] { -1, 0 };
             dict['U'] = new int[] { 0, 1 };
             dict['D'] = new int[] { 0, -1 };
-            
+            /*Sum the x coordinates and ycoordinates if they are both zero, the robot has returned to its original position*/
             foreach( var i in movesfinal)
             {
                 var s = dict[i];
                 xcoordinate += s[0];
-                xcoordinate += s[1];
+                ycoordinate += s[1];
 
             }
             if(xcoordinate==0 && ycoordinate==0)
@@ -35,17 +38,18 @@ namespace Quadrant
         public static bool CheckIfPangram(string sentence)
         {
             int[] count = new int[26];
+            //if the sentence length is less than 26, it is not pangram
             if (sentence.Length < 26)
             {
                 return false;
             }
             else
-            {
+            {   //for every character present in the sentence, increment the character count
                 foreach (char c in sentence)
                 {
                     count[c - 'a']++;
                 }
-
+                //if  count is zero for any character the sentence is not a pangram
                 foreach (char c in count)
                 {
                     if (c == 0)
@@ -59,6 +63,7 @@ namespace Quadrant
         public static int NumIdenticalPairs(int[] nums)
         {
             int count = 0;
+            //find the repeating nums by iterating the array twice, second iteration starts from index i+1
             for (int i = 0; i < nums.Length; i++)
             {
                 for (int j = i + 1; j < nums.Length; j++)
@@ -75,7 +80,7 @@ namespace Quadrant
         public static int PivotIndex(int[] nums)
         {
             try
-            {
+            {   //Calculate the totalsum
                 int totalsum = 0, leftsum = 0;
                 if (nums.Length == 0)
                 {
@@ -84,7 +89,9 @@ namespace Quadrant
                 foreach (var i in nums)
                     totalsum += i;
 
-
+                /* 
+                 subtract ith value from totalsum for every iteration and check if it is equal to leftsum
+                if its not equal add ith iteration value to leftsum*/
                 for (int i = 0; i < nums.Length; i++)
                 {
                     if ((totalsum = (totalsum - nums[i])) == leftsum)
@@ -115,7 +122,7 @@ namespace Quadrant
                 return string.Empty;
             }
             else
-            {
+            {   /*for every iteration append individual characters of word1 and word2 alternatively*/
                 for (int i = 0; i < word1.Length || i < word2.Length; i++)
                 {
                     if (i < word1.Length)
@@ -135,7 +142,7 @@ namespace Quadrant
         private static string ToGoatLatin(string sentence)
         {
             try
-            {
+            { 
                 string results = "";
                 // write your code here.
                 char[] vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
@@ -147,7 +154,7 @@ namespace Quadrant
                 foreach (string word in words)
                 {
                     foreach (char c in vowels)
-                    {
+                    {   //if word is a vowel append 'ma' 
                         if (word.StartsWith(c))
                         {
                             results += word + "ma" + initial + " ";
@@ -155,13 +162,14 @@ namespace Quadrant
                         }
                     }
                     foreach (char c in consonants)
-                    {
+                    {   //if the word is consonant append word[0]+ 'ma' at the end
                         if (word.StartsWith(c))
                         {
                             results += word.Remove(0, 1) + word[0] + "ma" + initial + " ";
 
                         }
                     }
+                    //initial keeps updating for every iteration
                     initial += "a";
                 }
 
@@ -188,7 +196,7 @@ namespace Quadrant
             }
             Console.WriteLine();
             //Question 2:
-            Console.WriteLine(" Q2 : Enter the string to check for pangram:");            
+            Console.WriteLine("Q2 : Enter the string to check for pangram:");            
             string s = Console.ReadLine();     
             bool flag=CheckIfPangram(s);            
             if(flag)            
@@ -204,7 +212,7 @@ namespace Quadrant
             int[] arr ={1,2,3,1,1,3};     
             int gp=NumIdenticalPairs(arr);     
             Console.WriteLine("Q3:");            
-            Console.WriteLine("The number of IdenticalPairs in the array are :{0}", gp);
+            Console.WriteLine("The number of Identical Pairs in the array are : {0}", gp);
             //Question 4:
             int[] arr1 = { 1, 7, 3, 6, 5, 6 };            
             Console.WriteLine("Q4:");            
@@ -227,6 +235,7 @@ namespace Quadrant
             String merged= MergeAlternately(word1,word2);            
             Console.WriteLine("The Merged Sentence fromed by both words is {0}",merged);
             //Quesiton 6:
+            Console.WriteLine();
             Console.WriteLine("Q6: Enter the sentence to convert:");            
             string sentence = Console.ReadLine();     
             string goatLatin= ToGoatLatin(sentence);            
